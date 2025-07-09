@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse and search the Pampanga Provincial Library book collection">
+    <meta name="keywords" content="library, books, search, Pampanga, provincial library">
+    <title>Books Library - Pampanga Provincial Library Repository System</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/x-icon" href="../css/assets/favicon.ico">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <!-- HEADER -->
+    <header class="static-header">
+        <div class="header-content">
+            <img src="../css/assets/gov-logo.png" alt="Republic of the Philippines" class="header-logo">
+            <h1 class="header-title">PAMPANGA PROVINCIAL LIBRARY REPOSITORY</h1>
+            
+            <!-- Add live clock to header -->
+            <div id="header-clock" aria-live="polite" aria-label="Current time">
+                <div class="header-time" id="current-time-display">--:--:--</div>
+                <div class="header-date" id="current-date-display">Loading...</div>
+            </div>
+        </div>
+    </header>
+    
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" title="Open menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <div id="drawerOverlay"></div>
+    
+    <nav class="side-drawer" id="collapsibleMenu">
+        <ul>
+            <li><a href="../pages/landing.html">Home</a></li>
+            <li id="addBookNav"><a href="../pages/addBook.html">Add Book</a></li>
+            <li><a href="../pages/myBorrowings.html" id="myBorrowingsNav">My Borrowings</a></li>
+        </ul>
+        <div class="drawer-spacer"></div>
+        <div class="drawer-user-info" id="drawerUserInfo">
+            <div class="user-avatar">
+                <span id="userInitials">?</span>
+            </div>
+            <div class="user-details">
+                <div class="user-name" id="drawerUserName">Guest</div>
+                <div class="user-role" id="drawerUserRole">Visitor</div>
+            </div>
+            <button class="user-menu-btn" id="userMenuBtn" aria-label="User menu" aria-expanded="false" aria-haspopup="true">
+                <span class="chevron-up">▲</span>
+            </button>
+            <div class="user-menu" id="userMenu" role="menu" aria-hidden="true">
+                <button class="user-menu-item" id="logoutBtn" role="menuitem">
+                    <span class="menu-icon">🚪</span>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <main role="main">
+        <div class="dashboard">
+            <h2 id="page-title">Books Library</h2>
+            
+            <!-- Search Card -->
+            <div class="dashboard-row">
+                <div class="dashboard-card search-card" role="search" aria-labelledby="search-heading">
+                    <h3 id="search-heading">Search Books</h3>
+                    <div class="dashboard-card-content">
+                        <div id="searchContainer">
+                            <div class="search-bar-group">
+                                <label for="searchInput" class="sr-only">Search books</label>
+                                <input type="text" id="searchInput" placeholder="Search books..." aria-label="Search books" aria-describedby="search-help">
+                                
+                                <label for="filterMethod" class="sr-only">Filter by</label>
+                                <select id="filterMethod" aria-label="Filter by">
+                                    <option value="subject">Subject</option>
+                                    <option value="author">Author</option>
+                                    <option value="title">Title</option>
+                                </select>
+                                
+                                <button id="searchBtn" class="main-btn" aria-label="Search books" type="button">Search</button>
+                                
+                                <div id="search-help" class="sr-only">Enter search terms and select a filter category</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Books Collection Card -->
+            <div class="dashboard-row">
+                <div class="dashboard-card collection-card" role="region" aria-labelledby="collection-heading" aria-live="polite">
+                    <h3 id="collection-heading">Book Collection</h3>
+                    <div class="dashboard-card-content">
+                        <div id="message" role="status" aria-live="polite"></div>
+                        <div id="loading" role="status" aria-live="polite" aria-label="Loading books">Loading...</div>
+                        <div id="booksContainer" role="list" aria-label="Books list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Pampanga Provincial Library. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <div id="toast-container"></div>
+    <script src="../js/utils.js"></script>
+    <script src="../js/validation.js"></script>
+    <script src="../js/errorHandler.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/userUtils.js" type="module"></script>
+    <script src="../js/menuUtils.js" type="module"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/books.js" type="module"></script>
+</body>
+</html>

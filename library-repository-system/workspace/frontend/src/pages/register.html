@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Library Repository</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="logo-row">
+        <img src="../css/assets/gov-logo.png" alt="Government Logo 1" class="gov-logo">
+        <img src="../css/assets/sagisag-pilipinas-logo.png" alt="Government Logo 2" class="gov-logo">
+    </div>
+    <div class="register-container">
+        <h1>User Registration</h1>
+        <p style="color:red; font-size:0.95em;">* Required fields</p>
+        <div id="registerMessage" aria-live="polite"></div>
+        <div id="displayNamePreview" style="margin-bottom:1em; color:#555;"></div>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="surname">Surname: <span style="color:red">*</span></label>
+                <input type="text" id="surname" name="surname" autocomplete="family-name" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="firstname">First Name: <span style="color:red">*</span></label>
+                <input type="text" id="firstname" name="firstname" autocomplete="given-name" required>
+            </div>
+            <div class="form-group">
+                <label for="middleInitial">Middle Initial:</label>
+                <input type="text" id="middleInitial" name="middleInitial" maxlength="1" autocomplete="additional-name">
+            </div>
+            <div class="form-group">
+                <label for="username">Username: <span style="color:red">*</span></label>
+                <input type="text" id="username" name="username" autocomplete="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password: <span style="color:red">*</span></label>
+                <input type="password" id="password" name="password" autocomplete="new-password" required>
+                <small class="password-hint">Password must be at least 8 characters with uppercase, lowercase, numbers, and symbols.</small>
+                <div id="passwordStrength" class="password-strength"></div>
+                <div id="passwordRequirements" class="password-requirements"></div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password: <span style="color:red">*</span></label>
+                <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" required>
+            </div>
+            <div class="form-group form-group-inline">
+                <input type="checkbox" id="showPassword">
+                <label for="showPassword" class="checkbox-label">Show Passwords</label>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="main-btn">Register</button>
+                <button type="reset" class="main-btn">Clear</button>
+            </div>
+        </form>
+        <p>Already have an account? <a href="../pages/login.html">Login here</a></p>
+    </div>
+    <div id="toast-container"></div>
+    <div id="loader" style="display:none;">
+        <div class="spinner"></div>
+    </div>
+    <script src="../js/utils.js"></script>
+    <script src="../js/validation.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/register.js"></script>
+    <script src="../js/errorHandler.js"></script>
+</body>
+</html>

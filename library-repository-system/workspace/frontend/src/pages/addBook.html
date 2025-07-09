@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Add new books to the Pampanga Provincial Library collection">
+    <meta name="keywords" content="library, add book, Pampanga, provincial library">
+    <title>Add Book - Pampanga Provincial Library Repository System</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/x-icon" href="../css/assets/favicon.ico">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <!-- HEADER - Same as books.html -->
+    <header class="static-header">
+        <div class="header-content">
+            <img src="../css/assets/gov-logo.png" alt="Pampanga Provincial Library Logo" class="header-logo">
+            <h1 class="header-title">PAMPANGA PROVINCIAL LIBRARY REPOSITORY SYSTEM</h1>
+            
+            <!-- Add live clock to header -->
+            <div id="header-clock" aria-live="polite" aria-label="Current time">
+                <div class="header-time" id="current-time-display">--:--:--</div>
+                <div class="header-date" id="current-date-display">Loading...</div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- HAMBURGER MENU - Same as books.html -->
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" title="Open menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <!-- DRAWER OVERLAY - Same as books.html -->
+    <div id="drawerOverlay"></div>
+    
+    <!-- SIDE DRAWER - Same as books.html -->
+    <div class="side-drawer" id="collapsibleMenu">
+        <ul>
+            <li><a href="../pages/landing.html">Home</a></li>
+            <li><a href="../pages/books.html">Books</a></li>
+            <li><a href="../pages/myBorrowings.html" id="myBorrowingsNav">My Borrowings</a></li>
+        </ul>
+        
+        <div class="drawer-spacer"></div>
+        
+        <div class="drawer-user-info">
+            <div class="user-avatar" id="userInitials">U</div>
+            <div class="user-details">
+                <div class="user-name" id="drawerUserName">User</div>
+                <div class="user-role" id="drawerUserRole">Member</div>
+            </div>
+            <button class="user-menu-btn" id="userMenuBtn" aria-label="User menu" aria-expanded="false">
+                <span class="chevron-up">▲</span>
+            </button>
+            <div class="user-menu" id="userMenu">
+                <button class="user-menu-item" id="logoutBtn">
+                    <span class="menu-icon">🚪</span>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MAIN CONTENT with Dashboard Layout -->
+    <main role="main">
+        <div class="dashboard">
+            <h2>Add New Book</h2>
+            
+            <div class="dashboard-row">
+                <div class="dashboard-card form-card">
+                    <h3>Book Information</h3>
+                    <div class="dashboard-card-content">
+                        <p style="color:#f44336; font-size:0.95em; margin-bottom: 1.5em;">* Required fields</p>
+                        
+                        <form id="addBookForm">
+                            <div class="form-group">
+                                <label for="author">Author (Lastname, Firstname, M.I): <span style="color:red">*</span></label>
+                                <input type="text" id="author" name="author" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="title">Title: <span style="color:red">*</span></label>
+                                <input type="text" id="title" name="title" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="publication">Publication (Name & Place of Publication): <span style="color:red">*</span></label>
+                                <input type="text" id="publication" name="publication" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="copyrightYear">Copyright Year: <span style="color:red">*</span></label>
+                                <input type="number" id="copyrightYear" name="copyrightYear" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="physicalDescription">Physical Description (No. of pages, dimension of item): <span style="color:red">*</span></label>
+                                <input type="text" id="physicalDescription" name="physicalDescription" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="series">Series:</label>
+                                <input type="text" id="series" name="series">
+                            </div>
+                            
+                            <div class="form-group isbn-group">
+                                <label for="isbn">ISBN: <span style="color:red">*</span></label>
+                                <input type="text" id="isbn" name="isbn" required pattern="\d{10}(\d{3})?" placeholder="e.g. 9781234567890"
+                                       oninvalid="this.setCustomValidity('Please enter a valid 10 or 13 digit ISBN number')"
+                                       oninput="this.setCustomValidity('')">
+                                <div class="isbn-checkbox">
+                                    <input type="checkbox" id="allowDuplicateIsbn" name="allowDuplicateIsbn" aria-describedby="allowDuplicateHelp">
+                                    <label for="allowDuplicateIsbn" class="checkbox-label">Allow duplicate ISBN</label>
+                                </div>
+                                <small id="allowDuplicateHelp">
+                                    Check this only if you are intentionally adding a book with an ISBN that already exists in the system.
+                                </small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject (Topics): <span style="color:red">*</span></label>
+                                <input type="text" id="subject" name="subject" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="callNumber">Call Number: <span style="color:red">*</span></label>
+                                <input type="text" id="callNumber" name="callNumber" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="accessionNumber">Accession Number: <span style="color:red">*</span></label>
+                                <input type="text" id="accessionNumber" name="accessionNumber" required autocomplete="off">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="location">Location: <span style="color:red">*</span></label>
+                                <input type="text" id="location" name="location" required>
+                            </div>
+                            
+                            <div class="form-buttons">
+                                <button type="submit" class="main-btn submit-btn">Add Book</button>
+                                <button type="reset" class="main-btn reset-btn">Clear</button>
+                            </div>
+                        </form>
+                        
+                        <div id="message" role="status" aria-live="polite"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- FOOTER - Same as books.html -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Pampanga Provincial Library. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- LOADER -->
+    <div id="loader" style="display:none;">
+        <div class="spinner"></div>
+    </div>
+    
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+    
+    <script src="../js/utils.js"></script>
+    <script src="../js/validation.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/userUtils.js" type="module"></script>
+    <script src="../js/menuUtils.js" type="module"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/addBook.js" type="module"></script>
+    <script src="../js/errorHandler.js"></script>
+</body>
+</html>

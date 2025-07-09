@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Borrowings - Pampanga Provincial Library</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/x-icon" href="../css/assets/favicon.ico">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <header class="static-header">
+        <div class="header-content">
+            <img src="../css/assets/gov-logo.png" alt="Pampanga Provincial Library Logo" class="header-logo">
+            <h1 class="header-title">PAMPANGA PROVINCIAL LIBRARY REPOSITORY SYSTEM</h1>
+            
+            <!-- Add live clock to header -->
+            <div id="header-clock" aria-live="polite" aria-label="Current time">
+                <div class="header-time" id="current-time-display">--:--:--</div>
+                <div class="header-date" id="current-date-display">Loading...</div>
+            </div>
+        </div>
+    </header>
+
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+    </button>
+    
+    <div id="drawerOverlay"></div>
+    
+    <div class="side-drawer" id="collapsibleMenu">
+        <ul>
+            <li><a href="../pages/landing.html">Home</a></li>
+            <li><a href="../pages/books.html">Books</a></li>
+        </ul>
+        
+        <div class="drawer-spacer"></div>
+        
+        <div class="drawer-user-info">
+            <div class="user-avatar" id="userInitials">U</div>
+            <div class="user-details">
+                <div class="user-name" id="drawerUserName">User</div>
+                <div class="user-role" id="drawerUserRole">Member</div>
+            </div>
+        </div>
+    </div>
+
+    <main role="main">
+        <div class="dashboard">
+            <h2>📚 My Borrowed Books</h2>
+            
+            <div class="borrowing-stats">
+                <div class="stat-card">
+                    <h3>Currently Borrowed</h3>
+                    <span id="currentCount">0</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Overdue</h3>
+                    <span id="overdueCount" class="overdue-text">0</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Remaining Slots</h3>
+                    <span id="remainingSlots">5</span>
+                </div>
+            </div>
+
+            <div class="borrowings-container" id="borrowingsContainer">
+                <div id="loading">Loading your borrowings...</div>
+            </div>
+            
+            <div id="message" role="status" aria-live="polite"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Pampanga Provincial Library. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/userUtils.js" type="module"></script>
+    <script src="../js/menuUtils.js" type="module"></script>
+    <script src="../js/myBorrowings.js" type="module"></script>
+</body>
+</html>

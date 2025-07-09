@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="logo-row">
+        <img src="../css/assets/gov-logo.png" alt="Government Logo 1" class="gov-logo">
+        <img src="../css/assets/sagisag-pilipinas-logo.png" alt="Government Logo 2" class="gov-logo">
+    </div>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="main-btn">Login</button>
+                <button type="button" id="guestLoginBtn" class="main-btn guest-btn">Login as Guest</button>
+            </div>
+        </form>
+        <p>Don't have an account? <a href="../pages/register.html">Register here</a></p>
+    </div>
+    <div id="loader" style="display:none;">
+        <div class="spinner"></div>
+    </div>
+    <div id="toast-container"></div>
+    <script src="../js/utils.js"></script>
+    <script src="../js/validation.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/errorHandler.js"></script>
+</body>
+</html>
