@@ -1,0 +1,39 @@
+# Java Development Kit
+Oracle_JDK-24/
+jdk*/
+*.jdk
+
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+
+# Database files
+*.db
+*.sqlite
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+
+# Build outputs
+dist/
+build/
+target/
+
+# Large binary files
+*.zip
+*.tar.gz
+*.rar
