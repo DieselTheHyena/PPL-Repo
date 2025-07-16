@@ -101,7 +101,7 @@ if (addBookForm) {
         showLoader(true);
         
         try {
-            const response = await fetch('http://localhost:5000/api/books', {
+            const response = await fetch(ApiConfig.getApiUrl('/books'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,29 +111,15 @@ if (addBookForm) {
                 body: JSON.stringify(bookData)
             });
 
+            const result = await response.json();
+
             if (response.ok) {
+                showToast('Book added successfully!', 'success');
                 showMessage('Book added successfully!', 'green');
                 addBookForm.reset();
-                showToast('Book added successfully!', 'success');
-                
-                // Clear message after 3 seconds
-                setTimeout(() => {
-                    const messageDiv = document.getElementById('message');
-                    if (messageDiv) messageDiv.textContent = '';
-                }, 3000);
             } else {
-                const error = await response.json();
-                let msg = 'Error adding book: ';
-                if (error.errors && Array.isArray(error.errors)) {
-                    msg += error.errors.map(e => `${e.field}: ${e.message}`).join('; ');
-                } else if (error.field && error.message) {
-                    msg += `${error.field}: ${error.message}`;
-                } else if (error.message) {
-                    msg += error.message;
-                } else {
-                    msg += 'Unknown error';
-                }
-                showMessage(msg, 'red');
+                showToast(result.message || 'Failed to add book', 'error');
+                showMessage(result.message || 'Failed to add book', 'red');
             }
         } catch (error) {
             console.error('Error:', error);

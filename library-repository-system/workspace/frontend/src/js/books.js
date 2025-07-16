@@ -345,11 +345,8 @@ function createBookElement(book, isAdmin, isMember) {
 
 // Borrowing functionality
 async function handleBorrowBook(bookId) {
-    console.log('Borrowing book with ID:', bookId);
-    showLoading();
-    
     try {
-        const response = await fetch('http://localhost:5000/api/borrowings/borrow', {
+        const response = await fetch(ApiConfig.getApiUrl('/borrowings/borrow'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -358,21 +355,18 @@ async function handleBorrowBook(bookId) {
             },
             body: JSON.stringify({ book_id: bookId })
         });
-        
-        const result = await response.json();
-        
+
+        const data = await response.json();
+
         if (response.ok) {
-            showMessage('Book borrowed successfully! Due date: ' + new Date(result.borrowing.due_date).toLocaleDateString(), 'green');
-            showToast('Book borrowed successfully!', 'success');
-            fetchBooks(); // Reload to update availability
+            showMessage('Book borrowed successfully!', 'green');
+            fetchBooks(); // Refresh the books list
         } else {
-            showMessage(result.message || 'Failed to borrow book', 'red');
+            showMessage(data.message || 'Failed to borrow book', 'red');
         }
     } catch (error) {
-        console.error('Borrow error:', error);
-        showMessage('Failed to borrow book. Please try again.', 'red');
-    } finally {
-        hideLoading();
+        console.error('Error borrowing book:', error);
+        showMessage('Error borrowing book. Please try again.', 'red');
     }
 }
 
@@ -384,7 +378,7 @@ async function fetchBooks() {
     showLoading();
     
     try {
-        const response = await fetch('http://localhost:5000/api/books');
+        const response = await fetch(ApiConfig.getApiUrl('/books'));
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -414,32 +408,22 @@ async function fetchBooks() {
 }
 
 async function handleDeleteBook(bookId) {
-    console.log('Deleting book with ID:', bookId);
-    showLoading();
-    
     try {
-        const response = await fetch(`http://localhost:5000/api/books/${bookId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-User-Id': String(user.id),
-                'X-Is-Admin': String(user.is_admin === true || user.is_admin === 1)
-            }
+        const response = await fetch(ApiConfig.getApiUrl(`/books/${bookId}`), {
+            method: 'DELETE'
         });
-        
+
+        const data = await response.json();
+
         if (response.ok) {
             showMessage('Book deleted successfully!', 'green');
-            showToast('Book deleted successfully!', 'success');
-            fetchBooks();
+            fetchBooks(); // Refresh the books list
         } else {
-            const errorData = await response.json().catch(() => ({}));
-            showMessage(errorData.message || 'Failed to delete book', 'red');
+            showMessage(data.message || 'Failed to delete book', 'red');
         }
     } catch (error) {
-        console.error('Delete error:', error);
-        showMessage('Failed to delete book. Please try again.', 'red');
-    } finally {
-        hideLoading();
+        console.error('Error deleting book:', error);
+        showMessage('Error deleting book. Please try again.', 'red');
     }
 }
 
@@ -525,21 +509,21 @@ async function handleEditFormSubmit(event, bookId) {
             title: formData.get('title'),
             author: formData.get('author'),
             publication: formData.get('publication'),
-            copyright_year: Number(formData.get('copyright_year')), // ✅ Fixed field name
-            physical_description: formData.get('physical_description'), // ✅ Fixed field name
+            copyright_year: Number(formData.get('copyright_year')),
+            physical_description: formData.get('physical_description'),
             series: formData.get('series') || null,
             isbn: formData.get('isbn'),
             subject: formData.get('subject'),
-            call_number: formData.get('call_number'), // ✅ Fixed field name
-            accession_number: formData.get('accession_number'), // ✅ Fixed field name
+            call_number: formData.get('call_number'),
+            accession_number: formData.get('accession_number'),
             location: formData.get('location'),
             total_copies: Number(formData.get('total_copies')),
             available_copies: Number(formData.get('available_copies'))
         };
         
-        console.log('Sending book data:', bookData); // For debugging
+        console.log('Sending book data:', bookData);
         
-        const response = await fetch(`http://localhost:5000/api/books/${bookId}`, {
+        const response = await fetch(ApiConfig.getApiUrl(`/books/${bookId}`), {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -555,12 +539,12 @@ async function handleEditFormSubmit(event, bookId) {
             fetchBooks();
         } else {
             const errorData = await response.json().catch(() => ({}));
-            console.error('Server error response:', errorData); // For debugging
+            console.error('Server error response:', errorData);
             showMessage(errorData.message || 'Failed to update book', 'red');
         }
     } catch (error) {
-        console.error('Edit error:', error);
-        showMessage('Failed to update book. Please try again.', 'red');
+        console.error('Error updating book:', error);
+        showMessage('Error updating book. Please try again.', 'red');
     } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Save Changes';

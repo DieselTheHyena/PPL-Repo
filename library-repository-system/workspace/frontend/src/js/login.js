@@ -8,9 +8,9 @@ loginForm.addEventListener('submit', async (event) => {
     const password = document.getElementById('password').value;
 
     try {
-        showLoader(true); // Show loader animation
+        showLoader(true);
 
-        const response = await fetch('http://localhost:5000/api/auth/login', {
+        const response = await fetch(ApiConfig.getApiUrl('/auth/login'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

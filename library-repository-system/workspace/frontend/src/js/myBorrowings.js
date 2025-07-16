@@ -21,7 +21,7 @@ async function fetchMyBorrowings() {
     const loading = document.getElementById('loading');
     
     try {
-        const response = await fetch('http://localhost:5000/api/borrowings/user', {
+        const response = await fetch(ApiConfig.getApiUrl('/borrowings/user'), {
             headers: {
                 'X-User-Id': String(user.id),
                 'X-Is-Admin': String(user.is_admin === true || user.is_admin === 1)
@@ -134,35 +134,30 @@ function updateStats(borrowings) {
 async function handleReturnBook(e) {
     if (!e.target.classList.contains('return-btn')) return;
     
-    const borrowingId = e.target.getAttribute('data-borrowing-id');
-    if (!confirm('Are you sure you want to return this book?')) return;
+    const borrowingId = e.target.dataset.id;
     
     try {
-        e.target.disabled = true;
-        e.target.textContent = 'Returning...';
-        
-        const response = await fetch(`http://localhost:5000/api/borrowings/return/${borrowingId}`, {
-            method: 'PUT',
+        const response = await fetch(ApiConfig.getApiUrl('/borrowings/return'), {
+            method: 'POST',
             headers: {
+                'Content-Type': 'application/json',
                 'X-User-Id': String(user.id),
                 'X-Is-Admin': String(user.is_admin === true || user.is_admin === 1)
-            }
+            },
+            body: JSON.stringify({ borrowing_id: borrowingId })
         });
-        
-        const result = await response.json();
-        
+
+        const data = await response.json();
+
         if (response.ok) {
             showMessage('Book returned successfully!', 'green');
-            fetchMyBorrowings(); // Refresh the list
+            fetchMyBorrowings(); // Refresh the borrowings list
         } else {
-            showMessage(result.message || 'Failed to return book', 'red');
+            showMessage(data.message || 'Failed to return book', 'red');
         }
     } catch (error) {
         console.error('Error returning book:', error);
-        showMessage('Failed to return book. Please try again.', 'red');
-    } finally {
-        e.target.disabled = false;
-        e.target.textContent = '📤 Return Book';
+        showMessage('Error returning book. Please try again.', 'red');
     }
 }
 
