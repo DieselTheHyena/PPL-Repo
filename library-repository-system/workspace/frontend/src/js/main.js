@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loginButton = document.getElementById('login-button');
     const addBookButton = document.getElementById('add-book-button');
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(sessionStorage.getItem('user')); // Changed from localStorage
     const addBookNav = document.getElementById('addBookNav');
 
     if (loginButton) {

@@ -55,8 +55,8 @@ loginForm.addEventListener('submit', async (event) => {
             };
             
             console.log('Storing user object:', userToStore);
-            localStorage.setItem('user', JSON.stringify(userToStore)); // Store complete user info
-            localStorage.setItem('loginSuccess', '1');
+            sessionStorage.setItem('user', JSON.stringify(userToStore)); // Store complete user info
+            sessionStorage.setItem('loginSuccess', '1');
             window.location.href = 'landing.html';
         } else {
             const error = await response.json();
@@ -77,16 +77,16 @@ guestLoginBtn.addEventListener('click', () => {
         username: 'guest',
         first_name: 'Guest',
         last_name: 'User',
-        display_name: 'Guest User', // Use display_name instead of displayName
+        display_name: 'Guest User',
         email: 'guest@library.local',
-        is_admin: false, // Use is_admin instead of role
+        is_admin: false,
         isGuest: true
     };
     
     console.log('Storing guest user:', guestUser);
-    // Store guest user info
-    localStorage.setItem('user', JSON.stringify(guestUser));
-    localStorage.setItem('loginSuccess', '1');
+    // Changed from localStorage to sessionStorage
+    sessionStorage.setItem('user', JSON.stringify(guestUser));
+    sessionStorage.setItem('loginSuccess', '1');
     
     // Show success message
     showToast('Logged in as Guest', 'success');

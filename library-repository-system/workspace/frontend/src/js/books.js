@@ -87,7 +87,7 @@ function setupEventListeners() {
     
     // Single event listener for all book interactions
     booksContainer.addEventListener('click', async (e) => {
-        const currentUser = JSON.parse(localStorage.getItem('user'));
+        const currentUser = JSON.parse(sessionStorage.getItem('user')); // Changed from localStorage
         const isAdmin = UserUtils.isAdmin(currentUser);
         const isMember = currentUser && !currentUser.isGuest;
         

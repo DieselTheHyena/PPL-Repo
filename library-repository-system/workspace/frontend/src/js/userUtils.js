@@ -1,6 +1,6 @@
 export class UserUtils {
     static getCurrentUser() {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(sessionStorage.getItem('user'));
         if (!user) {
             window.location.href = 'login.html';
             return null;

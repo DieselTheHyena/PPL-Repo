@@ -34,7 +34,8 @@ export class MenuUtils {
         
         if (logoutBtn) {
             logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('user');
+                sessionStorage.removeItem('user');  // Changed from localStorage
+                sessionStorage.removeItem('loginSuccess');
                 window.location.href = 'login.html';
             });
         }

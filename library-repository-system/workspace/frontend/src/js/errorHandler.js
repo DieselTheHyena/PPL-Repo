@@ -98,7 +98,8 @@ class ErrorHandler {
     }
     
     static redirectToLogin() {
-        localStorage.clear();
+        // Changed from localStorage to sessionStorage
+        sessionStorage.clear();
         window.location.href = 'login.html';
     }
     
